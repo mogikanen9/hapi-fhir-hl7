@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.ontariomd.hl7.service.file.FileService;
+import com.ontariomd.hl7.service.file.impl.CheckExistsFileServiceImpl;
 import com.ontariomd.hl7.service.file.impl.FileServiceImpl;
 import com.ontariomd.hl7.service.message.MessageService;
 import com.ontariomd.hl7.service.message.bean.MessageInfoBean;
@@ -35,7 +36,7 @@ public class App {
 			logger.info(
 					"About to send a message from file ->" + messageFile.getAbsolutePath() + ", encoding->" + encoding);
 
-			FileService fileService = new FileServiceImpl();
+			FileService fileService = new CheckExistsFileServiceImpl(new FileServiceImpl());
 			String data = fileService.read(messageFile, encoding);
 			
 			MessageInfoBean messageInfoBean = new MessageInfoBean();
