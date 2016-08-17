@@ -24,6 +24,30 @@ public class HL7v2MessageServiceImpl implements MessageService {
 	private int port;
 	private boolean useTls;
 
+	public String getServer() {
+		return server;
+	}
+
+	public void setServer(String server) {
+		this.server = server;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public boolean isUseTls() {
+		return useTls;
+	}
+
+	public void setUseTls(boolean useTls) {
+		this.useTls = useTls;
+	}
+
 	public HL7v2MessageServiceImpl(String server, int port, boolean useTls) {
 		super();
 		this.server = server;
@@ -35,7 +59,8 @@ public class HL7v2MessageServiceImpl implements MessageService {
 	public void send(MessageInfoBean message) throws MessageServiceException {
 		HapiContext context = null;
 		try {
-			context = new DefaultHapiContext();
+			context = new DefaultHapiContext();						
+			
 			Parser p = context.getPipeParser();
 
 			Message adt = p.parse(message.getData());
