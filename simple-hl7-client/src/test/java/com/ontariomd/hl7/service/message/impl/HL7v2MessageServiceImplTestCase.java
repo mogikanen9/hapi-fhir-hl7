@@ -12,7 +12,8 @@ import com.ontariomd.hl7.service.file.FileServiceException;
 import com.ontariomd.hl7.service.file.impl.FileServiceImpl;
 import com.ontariomd.hl7.service.message.MessageService;
 import com.ontariomd.hl7.service.message.MessageServiceException;
-import com.ontariomd.hl7.service.message.bean.MessageInfoBean;
+import com.ontariomd.hl7.service.message.bean.MessageRequest;
+import com.ontariomd.hl7.service.message.bean.MessageResponse;
 
 public class HL7v2MessageServiceImplTestCase {
 
@@ -29,7 +30,7 @@ public class HL7v2MessageServiceImplTestCase {
 	@Test
 	public void testSend() throws FileServiceException, MessageServiceException {
 		String server = "10.10.11.144";
-		int port = 43610;
+		int port = 43730;
 		MessageService messageService = new HL7v2MessageServiceImpl(server,port, false);
 		
 		
@@ -38,13 +39,14 @@ public class HL7v2MessageServiceImplTestCase {
 				.getFile();
 				logger.info(String.format("Full path -> %s", filePath));
 		FileService fileService = new FileServiceImpl();		
-		String data = fileService.read(new File(filePath), null);						
-		MessageInfoBean msgInfoBean = new MessageInfoBean();
+		String data = fileService.read(new File(filePath), "UTF-8");						
 		
+		MessageRequest msgRequest = new MessageRequest();
+		msgRequest.setBody(data);
+		msgRequest.setEncoding("UTF-8");
 		
-		msgInfoBean.setData(data);
-	    messageService.send(msgInfoBean);
-		logger.info("Success");	
+	    MessageResponse msgResponse = messageService.send(msgRequest);
+		logger.info(String.format("Call to server was successfull. Received response -> \n %s",msgResponse.getBody()));	
 		
 	}
 
