@@ -4,3 +4,15 @@ simple-hl7-client/.classpath
 simple-hl7-client/.project
 
 *.prefs
+
+.project
+
+simple-hl7-validator/.classpath
+
+target/classes/META-INF/MANIFEST.MF
+
+target/classes/META-INF/maven/com.mogikanensoftware.hl7/hapi-fhir-hl7/pom.properties
+
+target/classes/META-INF/maven/com.mogikanensoftware.hl7/hapi-fhir-hl7/pom.xml
+
+target/classes/META-INF/maven/com.mogikanensoftware.hl7/simple-hl7-client/pom.properties
