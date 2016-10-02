@@ -12,21 +12,28 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<hapi.version>2.2</hapi.version>
 	</properties>
 
 	<modules>
 		<module>simple-hl7-client</module>
 		<module>simple-hl7-validator</module>
 	</modules>
-	
+
 	<dependencies>
 
 		<dependency>
 			<groupId>ca.uhn.hapi</groupId>
 			<artifactId>hapi-base</artifactId>
-			<version>2.2</version>
+			<version>${hapi.version}</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>ca.uhn.hapi</groupId>
+			<artifactId>hapi-structures-v24</artifactId>
+			<version>${hapi.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
