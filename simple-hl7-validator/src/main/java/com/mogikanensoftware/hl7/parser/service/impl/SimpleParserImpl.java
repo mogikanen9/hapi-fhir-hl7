@@ -23,34 +23,27 @@ public class SimpleParserImpl implements SimpleParser {
 	@Override
 	public ParserResult parse(String message, SupportedVersion version) throws ParserException {
 
-		HapiContext context = new DefaultHapiContext();
+		try (HapiContext context = new DefaultHapiContext()) {
+			// TODO - handle version properly
+			CanonicalModelClassFactory mcf = new CanonicalModelClassFactory("2.4");
+			context.setModelClassFactory(mcf);
+			
+			//TODO - deal with executor and closebale
+			context.getExecutorService();
+			
+			// Pass the MCF to the parser in its constructor
+			PipeParser parser = context.getPipeParser();
 
-		//TODO handle version properly
-		CanonicalModelClassFactory mcf = new CanonicalModelClassFactory("2.4");
-		context.setModelClassFactory(mcf);
+			// The parser parses the v2.4 message
+			ca.uhn.hl7v2.model.v24.message.ORU_R01 msg = (ca.uhn.hl7v2.model.v24.message.ORU_R01) parser.parse(message);
 
-		// Pass the MCF to the parser in its constructor
-		PipeParser parser = context.getPipeParser();
-
-		// The parser parses the v2.3 message to a "v25" structure
-		ca.uhn.hl7v2.model.v24.message.ORU_R01 msg;
-		try {
-			msg = (ca.uhn.hl7v2.model.v24.message.ORU_R01) parser.parse(message);
 			ParserResult result = () -> msg;
 			return result;
-		} catch (HL7Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new ParserException(e.getMessage(), e);
-		} finally {
-			if (context != null) {
-				try {
-					context.close();
-				} catch (IOException e) {
-					logger.error(e.getMessage(), e);
-					throw new ParserException(e.getMessage(), e);
-				}
-			}
+		} catch (IOException | HL7Exception e) {
+			logger.error(e.getMessage(),e);
+			throw new ParserException(e.getMessage(),e);
 		}
+
 
 	}
 
