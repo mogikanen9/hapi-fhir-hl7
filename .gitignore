@@ -16,3 +16,4 @@ target/classes/META-INF/maven/com.mogikanensoftware.hl7/hapi-fhir-hl7/pom.proper
 target/classes/META-INF/maven/com.mogikanensoftware.hl7/hapi-fhir-hl7/pom.xml
 
 target/classes/META-INF/maven/com.mogikanensoftware.hl7/simple-hl7-client/pom.properties
+/target/
