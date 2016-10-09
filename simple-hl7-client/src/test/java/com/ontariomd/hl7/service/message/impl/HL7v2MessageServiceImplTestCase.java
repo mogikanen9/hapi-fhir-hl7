@@ -27,8 +27,8 @@ public class HL7v2MessageServiceImplTestCase {
 		Assert.assertEquals(messageService.isUseTls(),false);
 	}
 
-	@Test
-	public void testSend() throws FileServiceException, MessageServiceException {
+
+	public void integrationTestSend() throws FileServiceException, MessageServiceException {
 		String server = "10.10.11.144";
 		int port = 43730;
 		MessageService messageService = new HL7v2MessageServiceImpl(server,port, false);

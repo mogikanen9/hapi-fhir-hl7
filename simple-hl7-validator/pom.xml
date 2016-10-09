@@ -1,0 +1,13 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>simple-hl7-validator</artifactId>
+	<name>simple-hl7-validator</name>
+	<description>Simple module which performs HL7 message validation using HAPI API</description>
+
+	<parent>
+		<artifactId>hapi-fhir-hl7</artifactId>
+		<groupId>com.mogikanensoftware.hl7</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+</project>
