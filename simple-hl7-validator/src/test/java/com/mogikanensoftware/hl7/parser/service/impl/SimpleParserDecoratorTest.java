@@ -1,5 +1,7 @@
 package com.mogikanensoftware.hl7.parser.service.impl;
 
+import java.nio.charset.Charset;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -35,8 +37,8 @@ public class SimpleParserDecoratorTest {
 		SimpleParser decoratedParser = new SimpleParserDecorator(origin);
 		thrown.expect(ParserException.class);
         thrown.expectMessage("Inboud message is empty or null");
-		decoratedParser.parse(new PraserRequestImpl(null, null));
-		decoratedParser.parse(new PraserRequestImpl("", null));
+		decoratedParser.parse(new ParserRequestImpl(null, null,null));
+		decoratedParser.parse(new ParserRequestImpl("", null,null));
 	}
 
 	@Test
@@ -44,12 +46,20 @@ public class SimpleParserDecoratorTest {
 		SimpleParser decoratedParser = new SimpleParserDecorator(origin);
 		thrown.expect(ParserException.class);
         thrown.expectMessage("Version is null");
-		decoratedParser.parse(new PraserRequestImpl("abc", null));
+		decoratedParser.parse(new ParserRequestImpl("abc", null,null));
+	}
+	
+	@Test
+	public void testNullCharset() throws ParserException {
+		SimpleParser decoratedParser = new SimpleParserDecorator(origin);
+		thrown.expect(ParserException.class);
+        thrown.expectMessage("Charset is null");
+		decoratedParser.parse(new ParserRequestImpl("abc", SupportedVersion.v24,null));
 	}
 	
 	@Test
 	public void testAllValidaParams() throws ParserException {
 		SimpleParser decoratedParser = new SimpleParserDecorator(origin);
-		decoratedParser.parse(new PraserRequestImpl("abc", SupportedVersion.v24));
+		decoratedParser.parse(new ParserRequestImpl("abc", SupportedVersion.v24, Charset.forName("UTF-8")));
 	}
 }

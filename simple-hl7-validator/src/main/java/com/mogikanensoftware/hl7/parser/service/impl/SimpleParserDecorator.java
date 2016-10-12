@@ -24,6 +24,8 @@ public class SimpleParserDecorator implements SimpleParser {
 			throw new ParserException("Inboud message is empty or null.");
 		}else if (request.getVersion()==null){
 			throw new ParserException("Version is null.");
+		}else if (request.getCharset()==null){
+			throw new ParserException("Charset is null.");
 		}else{
 			return this.origin.parse(request);
 		}
