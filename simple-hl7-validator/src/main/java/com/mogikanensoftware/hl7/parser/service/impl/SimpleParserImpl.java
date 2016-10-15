@@ -17,10 +17,24 @@ import ca.uhn.hl7v2.llp.MinLowerLayerProtocol;
 import ca.uhn.hl7v2.model.Message;
 import ca.uhn.hl7v2.parser.CanonicalModelClassFactory;
 import ca.uhn.hl7v2.parser.PipeParser;
+import ca.uhn.hl7v2.validation.builder.support.DefaultValidationBuilder;
 
 public class SimpleParserImpl implements SimpleParser {
 
 	private static final Logger logger = LogManager.getLogger(SimpleParserImpl.class);
+
+	private CanonicalModelClassFactory modelClassFactory;
+	private DefaultValidationBuilder validationBuilder;
+	
+	
+	
+	public SimpleParserImpl(CanonicalModelClassFactory modelClassFactory, DefaultValidationBuilder validationBuilder) {
+		super();
+		this.modelClassFactory = modelClassFactory;
+		this.validationBuilder = validationBuilder;
+	}
+
+
 
 	@Override
 	public ParserResponse parse(ParserRequest request) throws ParserException {
@@ -33,8 +47,9 @@ public class SimpleParserImpl implements SimpleParser {
 			context.setLowerLayerProtocol(mllp);
 			
 			// TODO - handle version properly
-			CanonicalModelClassFactory mcf = new CanonicalModelClassFactory("2.4");
-			context.setModelClassFactory(mcf);
+			context.setModelClassFactory(this.modelClassFactory);
+			
+			context.setValidationRuleBuilder(this.validationBuilder);
 			
 			//TODO - deal with executor and closeble
 			context.getExecutorService();
